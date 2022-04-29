@@ -1,30 +1,34 @@
 // Pour une présentation de notre séléction littéraire 
-// nous utilisons un page web il nous faut donc la libraire http
+// nous utilisons une page web, il nous faut donc la librairie http
 // afin de créer notre serveur
+const http = require('http');
+// Pour modifier et utiliser les données de temps, on utilise le module dayjs (donc "require")
 const dayjs = require('dayjs');
 const relativeTime = require('dayjs/plugin/relativeTime');
 dayjs.extend(relativeTime)
-const http = require('http');
+// J'importe un module interne que j'ai créé(donc "require")
 const data = require('./list')
 const construction = require('./construction')
-// console.log('ici',construction)
-// console.log(dayjs)
 
-// Séléction de livres incontournables
+
+//  solution pour afficher lez livres dans l'ordre croissant de parution
+// for(const obj of data) {
+//     
+// obj.age= parseInt(dayjs().to(dayjs(obj.date).split(' ')[3]));
+//        
+// }
+// autre solution pour afficher les livres dans l'ordre croissant de parution
 for(const obj of data) {
-    console.log(typeof dayjs().to(dayjs(obj.date)))
-    obj.age= dayjs().to(dayjs(obj.date));
-    obj.age= parseInt(obj.age.split(' ')[3])   
+   obj.age = parseInt(dayjs(obj.date).format(`YYYY`));   
 }
-
 data.sort(function(a, b) {
-    return a.age - b.age;
+    return b.age - a.age  ;
   });
 
 // Création de notre serveur
 
 
-// Notre serveur sera sur le port 3000
+
 const server = http.createServer((req, res) => {
     let list = `<table><tbody> `;
         // On écrit l'entête de notre page html
@@ -51,10 +55,11 @@ const server = http.createServer((req, res) => {
   
   
   
-    // Corps de la page
+   
   
   
     // On à fini d'envoyer nos informations au client
-    // res.end();
+    //  res.end();
   })
+  // Notre serveur sera sur le port 3000
   server.listen(3000)

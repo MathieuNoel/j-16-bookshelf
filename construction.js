@@ -1,4 +1,5 @@
 
+// Pour accéder aux modules je doit les require également dans fichier qui en on besoin
 const dayjs = require('dayjs');
 const advancedFormat = require('dayjs/plugin/advancedFormat')
 dayjs.extend(advancedFormat)
@@ -6,7 +7,7 @@ const relativeTime = require('dayjs/plugin/relativeTime');
 dayjs.extend(relativeTime)
 require('dayjs/locale/fr')
 dayjs.locale('fr')
-
+// Séléction de livres incontournables avec un boucle for of
 function creatTable(data, list) { 
 
   for(const book of data){          
